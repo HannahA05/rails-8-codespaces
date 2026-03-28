@@ -4,10 +4,17 @@
   <% Product.all.each do |product| %>
     <li>
       <strong><%= product.name %></strong>
-      — <%= link_to "Show", product_path(product) %> |
-      <%= link_to "Edit", edit_product_path(product) %>
+      — <%= link_to "Show", product_path(product) %>
+
+      <% if authenticated? %>
+        | <%= link_to "Edit", edit_product_path(product) %>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "New Product", new_product_path %>
+<% if authenticated? %>
+  <%= link_to "New Product", new_product_path %>
+<% end %>
+
+<%= link_to "Login", new_session_path unless authenticated? %>
